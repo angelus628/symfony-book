@@ -18,13 +18,13 @@
         "version": "3.2.2"
     },
     "doctrine/dbal": {
-        "version": "3.3.2"
+        "version": "3.3.4"
     },
     "doctrine/deprecations": {
         "version": "v0.5.3"
     },
     "doctrine/doctrine-bundle": {
-        "version": "2.5",
+        "version": "2.6",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
@@ -66,13 +66,22 @@
         "version": "3.4.1"
     },
     "doctrine/orm": {
-        "version": "2.11.1"
+        "version": "2.11.2"
     },
     "doctrine/persistence": {
-        "version": "2.3.0"
+        "version": "2.4.1"
     },
     "doctrine/sql-formatter": {
         "version": "1.1.2"
+    },
+    "easycorp/easyadmin-bundle": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "b131e6cbfe1b898a508987851963fff485986285"
+        }
     },
     "egulias/email-validator": {
         "version": "3.1.2"
@@ -84,7 +93,10 @@
         "version": "4.5.1"
     },
     "monolog/monolog": {
-        "version": "2.3.5"
+        "version": "2.4.0"
+    },
+    "nesbot/carbon": {
+        "version": "2.57.0"
     },
     "nikic/php-parser": {
         "version": "v4.13.2"
@@ -96,10 +108,10 @@
         "version": "5.3.0"
     },
     "phpdocumentor/type-resolver": {
-        "version": "1.6.0"
+        "version": "1.6.1"
     },
     "phpstan/phpdoc-parser": {
-        "version": "1.2.0"
+        "version": "1.4.2"
     },
     "psr/cache": {
         "version": "3.0.0"
@@ -333,6 +345,9 @@
     "symfony/polyfill-php81": {
         "version": "v1.25.0"
     },
+    "symfony/polyfill-uuid": {
+        "version": "v1.25.0"
+    },
     "symfony/process": {
         "version": "v6.0.5"
     },
@@ -426,6 +441,9 @@
             "templates/base.html.twig"
         ]
     },
+    "symfony/uid": {
+        "version": "v6.0.3"
+    },
     "symfony/validator": {
         "version": "6.0",
         "recipe": {
@@ -497,8 +515,11 @@
     "twig/extra-bundle": {
         "version": "v3.3.8"
     },
+    "twig/intl-extra": {
+        "version": "v3.3.5"
+    },
     "twig/twig": {
-        "version": "v3.3.8"
+        "version": "v3.3.9"
     },
     "webmozart/assert": {
         "version": "1.10.0"
