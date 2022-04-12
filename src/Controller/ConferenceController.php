@@ -50,7 +50,7 @@ class ConferenceController extends AbstractController
      * @throws SyntaxError
      * @throws LoaderError
      */
-    #[Route('/conference/{id}', name: 'conference')]
+    #[Route('/conference/{slug}', name: 'conference')]
     public function show(Request $request, Conference $conference): Response
     {
         $offset = max(0, $request->query->get('offset', 0));
