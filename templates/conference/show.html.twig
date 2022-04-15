@@ -10,7 +10,7 @@
 
         {% for comment in comments %}
             {% if comment.getPhotoFilename %}
-                <img src="{{ asset('uploads/photos/%s' ~ comment.getPhotoFilename) }}" alt="Photo filename">
+                <img src="{{ asset('uploads/photos/' ~ comment.getPhotoFilename) }}" alt="Photo filename">
             {% endif %}
 
             <h4>{{ comment.getAuthor }}</h4>
@@ -29,4 +29,8 @@
     {% else %}
         <div>No comments have been posted yet for this conference.</div>
     {% endif %}
+
+    <h2>Add your own feedback</h2>
+
+    {{ form(comments_form) }}
 {% endblock body %}
