@@ -9,6 +9,10 @@ use App\Entity\Conference;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ * Class ConferenceFixtures
+ * @package App\DataFixtures
+ */
 class ConferenceFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
