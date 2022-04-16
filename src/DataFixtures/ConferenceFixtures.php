@@ -30,8 +30,8 @@ class ConferenceFixtures extends Fixture
             ->setConference($conference)
             ->setEmail('pe@pe.pe')
             ->setText('what an amazing show')
-            ->setPhotoFilename('c57207f7197e.jpg')
-            ;
+            ->setState('published')
+            ->setPhotoFilename('c57207f7197e.jpg');
         $manager->persist($conference);
         $manager->persist($comment);
 
@@ -48,6 +48,7 @@ class ConferenceFixtures extends Fixture
             ->setConference($conference)
             ->setEmail('lo@lo.lo')
             ->setText('My name is loli loli')
+            ->setState('published')
             ->setPhotoFilename('2f78ee934e8f.jpg')
         ;
         $manager->persist($conference);
