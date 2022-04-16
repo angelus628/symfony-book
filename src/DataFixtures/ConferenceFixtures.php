@@ -40,9 +40,18 @@ class ConferenceFixtures extends Fixture
             ->setCity('Bogota')
             ->setYear('2000')
             ->setIsInternational(true)
-            ->setSlug('-')
+            ->setSlug('-');
+
+        $comment = new Comment();
+        $comment
+            ->setAuthor('Loli')
+            ->setConference($conference)
+            ->setEmail('lo@lo.lo')
+            ->setText('My name is loli loli')
+            ->setPhotoFilename('2f78ee934e8f.jpg')
         ;
         $manager->persist($conference);
+        $manager->persist($comment);
 
         $conference = new Conference();
         $conference

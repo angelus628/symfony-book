@@ -6,7 +6,7 @@
     <h2>Give your feedback!</h2>
 
     {% for conference in conferences %}
-        {{ conference }}
+        <h4>{{ conference }}</h4>
         <p>
             <a href="{{ path('conference', { slug: conference.getSlug }) }}">View</a>
         </p>
