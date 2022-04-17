@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Conference;
 use App\Form\CommentFormType;
+use App\Message\CommentMessage;
 use App\Repository\CommentRepository;
 use App\Repository\ConferenceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -32,17 +34,20 @@ class ConferenceController extends AbstractController implements LoggerAwareInte
     private ConferenceRepository $conferenceRepository;
     private CommentRepository $commentRepository;
     private EntityManagerInterface $entityManager;
+    private MessageBusInterface $messageBus;
 
     public function __construct(
         Environment $environment,
         ConferenceRepository $conferenceRepository,
         CommentRepository $commentRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        MessageBusInterface $messageBus
     ) {
         $this->environment = $environment;
         $this->conferenceRepository = $conferenceRepository;
         $this->commentRepository = $commentRepository;
         $this->entityManager = $entityManager;
+        $this->messageBus = $messageBus;
     }
 
     /**
@@ -89,6 +94,14 @@ class ConferenceController extends AbstractController implements LoggerAwareInte
 
             $this->entityManager->persist($comment);
             $this->entityManager->flush();
+
+            $context = [
+                'user_ip' => $request->getClientIp(),
+                'referrer' => $request->headers->get('referrer'),
+                'permalink' => $request->getUri(),
+            ];
+
+            $this->messageBus->dispatch(new CommentMessage($comment->getId(), $context));
 
             return $this->redirectToRoute('conference', ['slug' => $conference->getSlug()]);
         }

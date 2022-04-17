@@ -49,8 +49,17 @@ class ConferenceFixtures extends Fixture
             ->setEmail('lo@lo.lo')
             ->setText('My name is loli loli')
             ->setState('published')
-            ->setPhotoFilename('2f78ee934e8f.jpg')
-        ;
+            ->setPhotoFilename('2f78ee934e8f.jpg');
+        $manager->persist($conference);
+        $manager->persist($comment);
+
+        $comment = new Comment();
+        $comment
+            ->setAuthor('Luis')
+            ->setConference($conference)
+            ->setEmail('luis@luis.com')
+            ->setText('Preloaded comment')
+            ->setPhotoFilename('2f78ee934e8f.jpg');
         $manager->persist($conference);
         $manager->persist($comment);
 
