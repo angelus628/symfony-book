@@ -1,0 +1,15 @@
+{% extends '@email/default/notification/body.html.twig' %}
+
+{% block content %}
+Author: {{ comment.getAuthor }}<br />
+Email: {{ comment.getEmail }}<br />
+State: {{ comment.getState }}<br />
+
+<p>comment.getText</p>
+{% endblock %}
+
+{% block action %}
+    <spacer size="16"></spacer>
+    <button href="{{ url('review_comment', { id: comment.getId }) }}">Accept</button>
+    <button href="{{ url('review_comment', { id: comment.getId, reject: true }) }}">Reject</button>
+{% endblock %}
