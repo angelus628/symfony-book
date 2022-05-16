@@ -50,6 +50,17 @@ class ConferenceController extends AbstractController implements LoggerAwareInte
         $this->messageBus = $messageBus;
     }
 
+    #[Route('/conference_header', name: 'conference_header')]
+    public function conferenceHeader(): Response
+    {
+        $response = new Response($this->environment->render('conference/header.html.twig', [
+            'conferences' => $this->conferenceRepository->findAll()
+        ]));
+
+        $response->setSharedMaxAge(3600);
+        return $response;
+    }
+
     /**
      * @throws RuntimeError
      * @throws SyntaxError
@@ -58,9 +69,12 @@ class ConferenceController extends AbstractController implements LoggerAwareInte
     #[Route('/', name: 'homepage')]
     public function index(): Response
     {
-        return new Response($this->environment->render('conference/index.html.twig', [
+        $response = new Response($this->environment->render('conference/index.html.twig', [
             'conferences' => $this->conferenceRepository->findAll()
         ]));
+
+        $response->setSharedMaxAge(3600);
+        return $response;
     }
 
     /**

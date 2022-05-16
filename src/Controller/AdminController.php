@@ -10,6 +10,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpCache\StoreInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Workflow\Registry;
@@ -19,23 +21,30 @@ use Twig\Environment;
  * Class AdminController
  * @package App\Controller
  */
+#[Route('/admin')]
 class AdminController extends AbstractController
 {
     private Environment $environment;
     private EntityManagerInterface $entityManager;
     private MessageBusInterface $messageBus;
+    private KernelInterface $kernel;
+    private StoreInterface $store;
 
     public function __construct(
         Environment $environment,
         EntityManagerInterface $entityManager,
-        MessageBusInterface $messageBus
+        MessageBusInterface $messageBus,
+        KernelInterface $kernel,
+        StoreInterface $store
     ) {
         $this->environment = $environment;
         $this->entityManager = $entityManager;
         $this->messageBus = $messageBus;
+        $this->kernel = $kernel;
+        $this->store = $store;
     }
 
-    #[Route('/admin/comment/review/{id}', name: 'review_comment')]
+    #[Route('/comment/review/{id}', name: 'review_comment')]
     public function reviewComment(Request $request, Comment $comment, Registry $registry): Response
     {
         $accepted = !$request->query->get('reject');
@@ -64,5 +73,16 @@ class AdminController extends AbstractController
             'transition' => $transition,
             'comment' => $comment
         ]));
+    }
+
+    #[Route('/http-cache/{uri<.*>}', methods: ['PURGE'])]
+    public function purgeHttpCache(Request $request, string $uri): Response
+    {
+        if ($this->kernel->getEnvironment() === 'prod') {
+            return new Response('KO', Response::HTTP_BAD_REQUEST);
+        }
+
+        $this->store->purge(sprintf('%s/%s', $request->getSchemeAndHttpHost(), $uri));
+        return new Response('Done');
     }
 }

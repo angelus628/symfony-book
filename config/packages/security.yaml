@@ -18,6 +18,8 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            pattern: ^/admin
+            stateless: true
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\AdminAuthenticator
@@ -25,6 +27,13 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
+        api:
+            pattern: ^/admin/api
+            stateless: true
+            lazy: true
+            provider: app_user_provider
+            http_basic:
+                realm: Secured Area
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -35,6 +44,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/admin/api, roles: ROLE_API }
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
