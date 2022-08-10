@@ -57,8 +57,7 @@ class ConferenceController extends AbstractController implements LoggerAwareInte
             'conferences' => $this->conferenceRepository->findAll()
         ]));
 
-        $response->setSharedMaxAge(3600);
-        return $response;
+        return $response->setSharedMaxAge(3600);
     }
 
     /**
