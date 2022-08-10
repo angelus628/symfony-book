@@ -17,16 +17,6 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            pattern: ^/admin
-            stateless: true
-            lazy: true
-            provider: app_user_provider
-            custom_authenticator: App\Security\AdminAuthenticator
-            logout:
-                path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
         api:
             pattern: ^/admin/api
             stateless: true
@@ -34,6 +24,14 @@ security:
             provider: app_user_provider
             http_basic:
                 realm: Secured Area
+        main:
+            lazy: true
+            provider: app_user_provider
+            custom_authenticator: App\Security\AdminAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: homepage
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

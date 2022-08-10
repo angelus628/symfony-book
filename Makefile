@@ -11,3 +11,7 @@ tests:
 consume:
 	symfony run -d --watch=config,src,templates,vendor symfony console messenger:consume async
 .PHONY: consume
+
+yarn-watch:
+	symfony run -d yarn dev --watch
+.PHONY: yarn-watch
